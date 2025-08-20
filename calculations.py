@@ -1,1 +1,5 @@
-# Her starter vi koden
+#!/usr/bin/env python3
+"""
+This sctipt contains functions and data to perform various calculations in our worck in designing the lifting mechanism for an forcklift.
+The project is part of the course MAS238 "Mekkatronikkprosjekt 1" at the University of Agder (UiA).
+"""
