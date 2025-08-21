@@ -48,6 +48,8 @@ hight_massCenterLiftingMechanismFromFork = 0.15  # m  H_TTF             From the
 hight_massCenterLoadFromFork = 0 # m  H_PL                              From the hinge point to the mass center of the load / point B and I
 hight_fork= 0  # m  y`FK                                                From the hinge point to the underside of the forks / point B and FK
 
+# Other geometry parameters
+trolly_width = 0.8  # m  W_T                                            Width of the trolly
 
 
 # Contraints for the engineering design
@@ -66,3 +68,21 @@ tilting_time = 5  # s  T_TILTING
 top_speed_forklift = 15  # km/h  V_FORKLIFT
 # Simultaneous lifting and tilting
 simultaneous_lifting_tilting = 6 # s  SIMULTANEOUS_LIFTING_TILTING
+
+
+
+
+# Plinimary calculations
+""" 
+The system consists of forks for carying the load, a trolley that the forks are welded to, a inner and outer tower, the main body of the forklift, and the two wheels.
+These are split into their own bodys, and the mass center of each body is calculated.
+"""
+# Load mass centers of the mecanisme from hinge point
+G_load = mass_loade * g # N  G_I
+x_load = length_hingePointToMassLoad  # m  x_I
+y_load = hight_massCenterLoadFromFork + hight_fork # m  y_I
+
+x_fork = (length_hingePointToE + length_forks) / 2  # m  x_FK
+y_fork = hight_fork  # m  y_FK
+
+x_trolly = length_hingePointToCC + (trolly_width / 2)  # m  x_T
