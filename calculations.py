@@ -17,6 +17,10 @@ g = 9.81  # m/s^2, acceleration due to gravity
 mass_loade = 1500  # kg
 mass_mainBody = 3500  # kg
 mass_liftingMechanism = 300  # kg
+mass_trolly = 0  # kg
+mass_fork = 0  # kg
+mass_cylinder = 0  # kg
+mass_tower = 0  # kg
 
 
 # Geometry of the forklift body
@@ -74,22 +78,62 @@ simultaneous_lifting_tilting = 6 # s  SIMULTANEOUS_LIFTING_TILTING
 
 # Plinimary calculations
 """ 
-The system consists of forks for carying the load, a trolley that the forks are welded to, a inner and outer tower, the main body of the forklift, and the two wheels.
+The system consists of forks for carying the load, a trolley that the forks are welded to, a tower (2 ish m), the main body of the forklift, and the two wheels.
 These are split into their own bodys, and the mass center of each body is calculated.
+A hydraulic cylinder is used to lift the trollt/forks with a chain, and the load is lifted by the forks.
 """
 # Tilt angle in radians
 degrees = 0
 tilting_angel_rad = math.radians(degrees)  # rad
+friction_coefficient = 0.2  # Coefficient of friction between the load and the forks
 
-# FBD load
+# FBD Load
 Gy_load = -((mass_loade * g) * math.cos(tilting_angel_rad))  # N
 Gx_load = -((mass_loade * g) * math.sin(tilting_angel_rad))  # N
 Ny_load = -Gy_load  # N
+if tilting_angel_rad > 0:
+    Nx_load = -Gx_load  # N
+else:
+    Nx_load = 0 # N
+if tilting_angel_rad < 0:
+    R_load = Ny_load * frition_coefficient  # N, friction force at the load
+else:
+    R_load = 0  # N
 
 # FBD Fork
 Gy_fork = -((mass_fork * g) * math.cos(tilting_angel_rad)) # N
 Gx_fork = -((mass_fork * g) * math.sin(tilting_angel_rad))  # N
-F1y = -Ny_load # N
-F1x = -Gx_load  # N
-F2y = -(Gy_fork + Ny_load)  # N
-F2x = -(Gx_fork + Gx_load)  # N
+F1y = -Ny_load # N, force from the load
+F1x = -R_load  # N, friction force at the load
+F2y = -(Gy_fork + F1y)  # N, counter force at the fork/trolly weld
+F2x = -(Gx_fork + F1x)  # N, counter force at the fork/trolly weld
+
+# FBD Trolly
+Gy_trolly = -((mass_trolly * g) * math.cos(tilting_angel_rad))  # N
+Gx_trolly = -((mass_trolly * g) * math.sin(tilting_angel_rad))  # N
+F3y = -F2y  # N, force from the fork/trolly weld
+F3x = -F2x  # N, force from the trolly/fork weld
+F4x = -Nx_load  # N, force from the load if tilted backwards
+F6x = 0  # N, force trolly top connection
+F5y = -(Gy_trolly + F3y)  # N, counter force at the trolly/fork weld
+F5x = -(Gx_trolly + F3x + F4x)  # N, counter force at the trolly/fork weld
+
+# FBD Tower
+Gy_tower = -((mass_tower * g) * math.cos(tilting_angel_rad))  # N
+Gx_tower = -((mass_tower * g) * math.sin(tilting_angel_rad))  # N
+
+# FBD Liftting cylinder
+aplied_force_lifting_cylinder = 0  # N, force applied by the lifting cylinder
+F11
+
+# FBD tilting cylinder
+aplied_force_tilting_cylinder = 0  # N, force applied by the tilting cylinder
+
+
+
+
+# FBD Main body
+Gy_mainBody = -(mass_mainBody * g)  # N
+
+F17y = F18y = -()   # N, force from ground at the wheels
+F17x = F18x = -()  # N, force from ground at the wheels
