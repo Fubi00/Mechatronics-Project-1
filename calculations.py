@@ -77,12 +77,19 @@ simultaneous_lifting_tilting = 6 # s  SIMULTANEOUS_LIFTING_TILTING
 The system consists of forks for carying the load, a trolley that the forks are welded to, a inner and outer tower, the main body of the forklift, and the two wheels.
 These are split into their own bodys, and the mass center of each body is calculated.
 """
-# Load mass centers of the mecanisme from hinge point
-G_load = mass_loade * g # N  G_I
-x_load = length_hingePointToMassLoad  # m  x_I
-y_load = hight_massCenterLoadFromFork + hight_fork # m  y_I
+# Tilt angle in radians
+degrees = 0
+tilting_angel_rad = math.radians(degrees)  # rad
 
-x_fork = (length_hingePointToE + length_forks) / 2  # m  x_FK
-y_fork = hight_fork  # m  y_FK
+# FBD load
+Gy_load = -((mass_loade * g) * math.cos(tilting_angel_rad))  # N
+Gx_load = -((mass_loade * g) * math.sin(tilting_angel_rad))  # N
+Ny_load = -Gy_load  # N
 
-x_trolly = length_hingePointToCC + (trolly_width / 2)  # m  x_T
+# FBD Fork
+Gy_fork = -((mass_fork * g) * math.cos(tilting_angel_rad)) # N
+Gx_fork = -((mass_fork * g) * math.sin(tilting_angel_rad))  # N
+F1y = -Ny_load # N
+F1x = -Gx_load  # N
+F2y = -(Gy_fork + Ny_load)  # N
+F2x = -(Gx_fork + Gx_load)  # N
