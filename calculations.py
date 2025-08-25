@@ -7,6 +7,7 @@ The project is part of the course MAS238 "Mekkatronikkprosjekt 1" at the Univers
 """ Created by: [Fabian A. Alsaker, Julian F. Idsø, Daniel, Nasar, 20-08-2025] """
 
 import math
+import sympy as sp
 
 
 # Constants for gyometry and physics
@@ -83,57 +84,54 @@ These are split into their own bodys, and the mass center of each body is calcul
 A hydraulic cylinder is used to lift the trollt/forks with a chain, and the load is lifted by the forks.
 """
 # Tilt angle in radians
+""" The tilt angle is the angle between the forks and the horizontal plane where positive is tilting backwards and negative is tilting forwards."""
 degrees = 0
 tilting_angel_rad = math.radians(degrees)  # rad
 friction_coefficient = 0.2  # Coefficient of friction between the load and the forks
 
-# FBD Load
-Gy_load = -((mass_loade * g) * math.cos(tilting_angel_rad))  # N
-Gx_load = -((mass_loade * g) * math.sin(tilting_angel_rad))  # N
-Ny_load = -Gy_load  # N
-if tilting_angel_rad > 0:
-    Nx_load = -Gx_load  # N
-else:
-    Nx_load = 0 # N
+# Gravity force
+# Load
+Gy_load = -((mass_loade * g) * math.cos(tilting_angel_rad))
+Gx_load = -((mass_loade * g) * math.sin(tilting_angel_rad))
+# Fork
+Gy_fork = -((mass_fork * g) * math.cos(tilting_angel_rad))
+Gx_fork = -((mass_fork * g) * math.sin(tilting_angel_rad))
+# Trolly
+Gy_trolly = -((mass_trolly * g) * math.cos(tilting_angel_rad))
+Gx_trolly = -((mass_trolly * g) * math.sin(tilting_angel_rad))
+# Tower
+Gy_tower = -((mass_tower * g) * math.cos(tilting_angel_rad))
+Gx_tower = -((mass_tower * g) * math.sin(tilting_angel_rad))
+# Main body
+Gy_mainBody = -(mass_mainBody * g)
+# Lifting cylinder
+Gy_lifting_cylinder = -((mass_liftingCylinder * g) * math.cos(tilting_angel_rad))
+Gx_lifting_cylinder = -((mass_liftingCylinder * g) * math.sin(tilting_angel_rad))
+# Tilting cylinder
+Gy_tilting_cylinder = -(mass_tiltingCylinder * g)
+
+
+# Load reaction forces
+Ny_load = -Gy_load
 if tilting_angel_rad < 0:
-    R_load = Ny_load * frition_coefficient  # N, friction force at the load
+    R_load = Ny_load * frition_coefficient
 else:
-    R_load = 0  # N
+    R_load = 0
+# Force on trolly from the load
+if tilting_angel_rad > 0:
+    Nx_load = -Gx_load
+else:
+    Nx_load = 0
+ 
 
-# FBD Fork
-Gy_fork = -((mass_fork * g) * math.cos(tilting_angel_rad)) # N
-Gx_fork = -((mass_fork * g) * math.sin(tilting_angel_rad))  # N
-F1y = -Ny_load # N, force from the load
-F1x = -R_load  # N, friction force at the load
-F2y = -(Gy_fork + F1y)  # N, counter force at the fork/trolly weld
-F2x = -(Gx_fork + F1x)  # N, counter force at the fork/trolly weld
+# Equilibrium equations for the forks
 
-# FBD Trolly
-Gy_trolly = -((mass_trolly * g) * math.cos(tilting_angel_rad))  # N
-Gx_trolly = -((mass_trolly * g) * math.sin(tilting_angel_rad))  # N
-F3y = -F2y  # N, force from the fork/trolly weld
-F3x = -F2x  # N, force from the trolly/fork weld
-F4x = -Nx_load  # N, force from the load if tilted backwards
-F6x = 0  # N, force trolly top connection
-F5y = -(Gy_trolly + F3y)  # N, counter force at the trolly/fork weld
-F5x = -(Gx_trolly + F3x + F4x)  # N, counter force at the trolly/fork weld
+# Equilibrium equations for the trolly
 
-# FBD Tower
-Gy_tower = -((mass_tower * g) * math.cos(tilting_angel_rad))  # N
-Gx_tower = -((mass_tower * g) * math.sin(tilting_angel_rad))  # N
+# Equilibrium equations for the tower
 
-# FBD Liftting cylinder
-aplied_force_lifting_cylinder = 0  # N, force applied by the lifting cylinder
-F11
+# Equilibrium equations for the lifting cylinder
 
-# FBD tilting cylinder
-aplied_force_tilting_cylinder = 0  # N, force applied by the tilting cylinder
+# Equilibrium equations for the tilting cylinder
 
-
-
-
-# FBD Main body
-Gy_mainBody = -(mass_mainBody * g)  # N
-
-F17y = F18y = -()   # N, force from ground at the wheels
-F17x = F18x = -()  # N, force from ground at the wheels
+# Equilibrium equations for the main body
