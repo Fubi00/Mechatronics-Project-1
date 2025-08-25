@@ -25,6 +25,30 @@ mass_tower = 0  # kg
 
 
 # Geometry of the forklift body
+# Posision of the connection points and mass centers using a global cordinate system with the origin at the front wheel contact point with the ground
+xA, yA, xB, yB, xC1, yC1, xC2, yC2, xD, yD, xE, yE, xF, yF, xG, yG, xH, yH, xI, yI, xJ, yJ, xK, yK, xL, yL, xN1, yN2, xN2, yN2, xR, yR = sp.symbols('xA yA xB yB xC1 yC1 xC2 yC2 xD yD xE yE xF yF xG yG xH yH xI yI xJ yJ xK yK xL yL xN1 yN1 xN2 yN2 xR yR')
+A = (xA, yA)
+B = (xB, yB)
+C1 = (xC1, yC1)
+C2 = (xC2, yC2)
+D = (xD, yD)
+E = (xE, yE)
+F = (xF, yF)
+G = (xG, yG)
+H = (xH, yH)
+I = (xI, yI)
+J = (xJ, yJ)
+K = (xK, yK)
+L = (xL, yL)
+N1 = (xN1, yN1)
+N2 = (xN2, yN2)
+R = (xR, yR)
+A_num = (0, 0)  # Front wheel center
+F_num = (length_wheelBase, 0)  # Rear wheel center
+G_num = (length_massCenterMain, hight_massCenterMain)  # Mass center of the main body
+B_num = (length_frontWheelToHingePoint, hight_hingePoint)  # Hinge point between the main body and the tower
+D_num = (length_frontWheelToD, hight_pointD)  # Connection point for the tilting cylinder to the main body
+C1_num = ()
 
 # Lengths in x-direction
 length_wheelBase = 1.32  # m  L_W                                       Between the front and rear wheels / point A and F
