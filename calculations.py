@@ -122,9 +122,22 @@ if tilting_angel_rad > 0:
     Nx_load = -Gx_load
 else:
     Nx_load = 0
- 
+
+# Unknown reaction forces
+Jx, Jy = sp.symbols('Jx Jy')  # Reaction forces at the welding between the forks and the trolly
+C1x, C1y = sp.symbols('C1x C1y')  # Reaction forces at the lower conection between the trolly and the tower
+C2x, C2y = sp.symbols('C2x C2y')  # Reaction forces at the upper conection between the trolly and the tower
+Kx, Ky = sp.symbols('Kx Ky')  # Reaction forces at the upper conection of the lifting cylinder to the chain
+Lx, Ly = sp.symbols('Lx Ly')  # Reaction forces at the lower conection of the lifting cylinder to the tower
+Ex, Ey = sp.symbols('Ex Ey')  # Reaction forces at the conection of the tilting cylinder to the tower
+Bx, By = sp.symbols('Bx By')  # Reaction forces at the tower hinge point to the main body
+Dx, Dy = sp.symbols('Dx Dy')  # Reaction forces at the conection of the tilting cylinder to the main body
+Ax, Ay = sp.symbols('Ax Ay')  # Reaction forces at the front wheel to the main body
+Fx, Fy = sp.symbols('Fx Fy')  # Reaction forces at the rear wheel to the main body
 
 # Equilibrium equations for the forks
+eqs.append
+
 
 # Equilibrium equations for the trolly
 
