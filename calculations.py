@@ -24,31 +24,7 @@ mass_cylinder = 0  # kg
 mass_tower = 0  # kg
 
 
-# Geometry of the forklift body
-# Posision of the connection points and mass centers using a global cordinate system with the origin at the front wheel contact point with the ground
-xA, yA, xB, yB, xC1, yC1, xC2, yC2, xD, yD, xE, yE, xF, yF, xG, yG, xH, yH, xI, yI, xJ, yJ, xK, yK, xL, yL, xN1, yN2, xN2, yN2, xR, yR = sp.symbols('xA yA xB yB xC1 yC1 xC2 yC2 xD yD xE yE xF yF xG yG xH yH xI yI xJ yJ xK yK xL yL xN1 yN1 xN2 yN2 xR yR')
-A = (xA, yA)
-B = (xB, yB)
-C1 = (xC1, yC1)
-C2 = (xC2, yC2)
-D = (xD, yD)
-E = (xE, yE)
-F = (xF, yF)
-G = (xG, yG)
-H = (xH, yH)
-I = (xI, yI)
-J = (xJ, yJ)
-K = (xK, yK)
-L = (xL, yL)
-N1 = (xN1, yN1)
-N2 = (xN2, yN2)
-R = (xR, yR)
-A_num = (0, 0)  # Front wheel center
-F_num = (length_wheelBase, 0)  # Rear wheel center
-G_num = (length_massCenterMain, hight_massCenterMain)  # Mass center of the main body
-B_num = (length_frontWheelToHingePoint, hight_hingePoint)  # Hinge point between the main body and the tower
-D_num = (length_frontWheelToD, hight_pointD)  # Connection point for the tilting cylinder to the main body
-C1_num = ()
+
 
 # Lengths in x-direction
 length_wheelBase = 1.32  # m  L_W                                       Between the front and rear wheels / point A and F
@@ -133,6 +109,9 @@ Gy_lifting_cylinder = -((mass_liftingCylinder * g) * math.cos(tilting_angel_rad)
 Gx_lifting_cylinder = -((mass_liftingCylinder * g) * math.sin(tilting_angel_rad))
 # Tilting cylinder
 Gy_tilting_cylinder = -(mass_tiltingCylinder * g)
+# Startcondition for ligting mechanism
+Gy_lift = -((mass_liftingMechanism * g) * math.cos(tilting_angel_rad))
+Gx_lift = -((mass_liftingMechanism * g) * math.sin(tilting_angel_rad))
 
 
 # Load reaction forces
@@ -147,20 +126,10 @@ if tilting_angel_rad > 0:
 else:
     Nx_load = 0
 
-# Unknown reaction forces
-Jx, Jy = sp.symbols('Jx Jy')  # Reaction forces at the welding between the forks and the trolly
-C1x, C1y = sp.symbols('C1x C1y')  # Reaction forces at the lower conection between the trolly and the tower
-C2x, C2y = sp.symbols('C2x C2y')  # Reaction forces at the upper conection between the trolly and the tower
-Kx, Ky = sp.symbols('Kx Ky')  # Reaction forces at the upper conection of the lifting cylinder to the chain
-Lx, Ly = sp.symbols('Lx Ly')  # Reaction forces at the lower conection of the lifting cylinder to the tower
-Ex, Ey = sp.symbols('Ex Ey')  # Reaction forces at the conection of the tilting cylinder to the tower
-Bx, By = sp.symbols('Bx By')  # Reaction forces at the tower hinge point to the main body
-Dx, Dy = sp.symbols('Dx Dy')  # Reaction forces at the conection of the tilting cylinder to the main body
-Ax, Ay = sp.symbols('Ax Ay')  # Reaction forces at the front wheel to the main body
-Fx, Fy = sp.symbols('Fx Fy')  # Reaction forces at the rear wheel to the main body
+
 
 # Equilibrium equations for the forks
-eqs.append
+
 
 
 # Equilibrium equations for the trolly
