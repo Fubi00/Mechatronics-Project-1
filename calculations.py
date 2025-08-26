@@ -11,7 +11,6 @@ import sympy as sp
 
 
 # Constants for gyometry and physics
-
 g = 9.81  # m/s^2, acceleration due to gravity
 
 # Masses of the components
@@ -23,35 +22,42 @@ mass_fork = 0  # kg
 mass_cylinder = 0  # kg
 mass_tower = 0  # kg
 
+# Main body mesurements given
+F_x = 1.32
+G_main_x = 1.05
+G_main_y = 0.25
+B_x = 0.4
+B_y = -0.2
+D_x = 0.4
+D_y = 0.42
+rWheel = 0.23
 
+# Lifting mechanism mesurements
+BE_x = 0.4
+BE_y =
+BC_x = 0.8
+BC_y = 0 
+BG_lift_x = 0.4
+BG_lift_y = 0.15
+BG_load_x = 0.8
+BG_load_y = 0.15
 
+ForkLength = 1.2
 
-# Lengths in x-direction
-length_wheelBase = 1.32  # m  L_W                                       Between the front and rear wheels / point A and F
-length_frontWheelToHingePoint = 0.4  # m  L_BF                          From the front wheel to the hinge point / point A and B
-length_massCenterMain = 1.05  # m  L_G                                  From the front wheel to the mass center of the main body / point A and G
-length_frontWheelToD = 0.4  # m  L_D                                    From the front wheel to the point D / point A and D
+# Center for the main cordinate system is point A, the center of the front wheel
+A = (0, 0)  # Point A, center of the front wheel
+F = (Fx, 0)  # Point F, center of the rear wheel
 
-# Heights in y-direction from point A
-hight_hingePoint = -0.2  # m  y_B                                       From the front wheel to the hinge point / point A and B
-hight_massCenterMain = 0.25  # m  H_G                                   From the front wheel to the mass center of the main body / point A and G
-hight_pointD = 0.42  # m  y_D                                           from the front wheel to the point D / point A and D
+G_main = (G_main_x, G_main_y)  # Center of mass for the main body
 
-# Radius of the wheels
-radus_wheel = 0.23  # m  R_W
+B = (B_x, B_y)  # Point B, bottom of the tower
 
-# Geometry of the lifting mechanism
-# Lenghts in x-direction of the lifting mechanism / Seprate cordinate system for tilting mechanism
-length_hingePointToE = 0.4  # m  L_BC                                   From the hinge point to the point E / point B and C 
-length_hingePointToCC = 0  # m x`c                                      From the hinge point to the CC axis / point C and axis CC
-length_hingePointToMassLift = 0.4  # m  L_BC                            From the hinge point to the mass center of the lifting mechanism / point B and H
-length_hingePointToMassLoad = 0  # m  L_BC                              From the hinge point to the mass center of the load / point B and I
-length_forks = 1.2 # m  L_FK                                            Length of the forks
+D = (D_x, D_y)  # Point D, bottom of the tilting cylinder
 
-# Heights in y-direction of the lifting mechanism / Seprate cordinate system for tilting mechanism
-hight_massCenterLiftingMechanismFromFork = 0.15  # m  H_TTF             From the hinge point to the mass center of the lifting mechanism / point B and H
-hight_massCenterLoadFromFork = 0 # m  H_PL                              From the hinge point to the mass center of the load / point B and I
-hight_fork= 0  # m  y`FK                                                From the hinge point to the underside of the forks / point B and FK
+# Points for the lifting mechanism
+E = (B[0] + BE_x, B[1] + BE_y)  # Point E, top of the tilting cylinder
+C1 = (B[0] + BC_x, B[1] + BC_y)  # Point C, top of the tower
+
 
 # Other geometry parameters
 trolly_width = 0.8  # m  W_T                                            Width of the trolly
@@ -93,25 +99,35 @@ friction_coefficient = 0.2  # Coefficient of friction between the load and the f
 # Load
 Gy_load = -((mass_loade * g) * math.cos(tilting_angel_rad))
 Gx_load = -((mass_loade * g) * math.sin(tilting_angel_rad))
+G_load = [Gx_load, Gy_load]
 # Fork
 Gy_fork = -((mass_fork * g) * math.cos(tilting_angel_rad))
 Gx_fork = -((mass_fork * g) * math.sin(tilting_angel_rad))
+G_fork = [Gx_fork, Gy_fork]
 # Trolly
 Gy_trolly = -((mass_trolly * g) * math.cos(tilting_angel_rad))
 Gx_trolly = -((mass_trolly * g) * math.sin(tilting_angel_rad))
+G_trolly = [Gx_trolly, Gy_trolly]
 # Tower
 Gy_tower = -((mass_tower * g) * math.cos(tilting_angel_rad))
 Gx_tower = -((mass_tower * g) * math.sin(tilting_angel_rad))
+G_tower = [Gx_tower, Gy_tower]
 # Main body
 Gy_mainBody = -(mass_mainBody * g)
+Gx_mainBody = 0
+G_mainBody = [Gx_mainBody, Gy_mainBody]
 # Lifting cylinder
 Gy_lifting_cylinder = -((mass_liftingCylinder * g) * math.cos(tilting_angel_rad))
 Gx_lifting_cylinder = -((mass_liftingCylinder * g) * math.sin(tilting_angel_rad))
+G_lifting_cylinder = [Gx_lifting_cylinder, Gy_lifting_cylinder]
 # Tilting cylinder
 Gy_tilting_cylinder = -(mass_tiltingCylinder * g)
+Gx_tilting_cylinder = 0
+G_tilting_cylinder = [Gx_tilting_cylinder, Gy_tilting_cylinder]
 # Startcondition for ligting mechanism
 Gy_lift = -((mass_liftingMechanism * g) * math.cos(tilting_angel_rad))
 Gx_lift = -((mass_liftingMechanism * g) * math.sin(tilting_angel_rad))
+G_lift = [Gx_lift, Gy_lift]
 
 
 # Load reaction forces
