@@ -1,5 +1,4 @@
 import sympy as sp
-from geometry import *
 
 # Functions to manipulate and retrieve point data
 def set_point(name, x, y):
